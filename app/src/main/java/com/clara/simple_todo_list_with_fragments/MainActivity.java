@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements
 
 			AddToDoItemFragment addToDoItemFragment = AddToDoItemFragment.newInstance();
 			ToDoListFragment toDoListFragment = ToDoListFragment.newInstance(mTodoItems);
+			ToDoItemDetailFragment detailFragment = ToDoItemDetailFragment.newInstance(new ToDoItem("", false));
 
 			FragmentManager fm = getSupportFragmentManager();
 			FragmentTransaction ft = fm.beginTransaction();
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements
 
 			ft.add(R.id.add_todo_view_container, addToDoItemFragment, TAG_ADD_NEW_FRAG);
 			ft.add(R.id.todo_list_view_container, toDoListFragment, TAG_LIST_FRAG);
+			ft.add(R.id.todo_detail_view_container, detailFragment, TAG_DETAIL_FRAG);
 
 			ft.commit();
 
@@ -103,13 +105,17 @@ public class MainActivity extends AppCompatActivity implements
 		//  Create new ToDoItemDetailFragment with the selected ToDoItem
 		//  show on screen
 
-		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		FragmentManager fm = getSupportFragmentManager();
+		ToDoItemDetailFragment toDoItemDetailFragment = (ToDoItemDetailFragment) fm.findFragmentByTag(TAG_DETAIL_FRAG);
+		toDoItemDetailFragment.setTodoItem(selected);
 
-		ToDoItemDetailFragment toDoItemDetailFragment = ToDoItemDetailFragment.newInstance(selected);
-		ft.replace(android.R.id.content, toDoItemDetailFragment, TAG_DETAIL_FRAG);
-
-		ft.addToBackStack(TAG_DETAIL_FRAG);
-		ft.commit();
+//		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//
+//		ToDoItemDetailFragment toDoItemDetailFragment = ToDoItemDetailFragment.newInstance(selected);
+//		ft.replace(android.R.id.content, toDoItemDetailFragment, TAG_DETAIL_FRAG);
+//
+//		ft.addToBackStack(TAG_DETAIL_FRAG);
+//		ft.commit();
 
 	}
 
@@ -125,13 +131,13 @@ public class MainActivity extends AppCompatActivity implements
 		ToDoListFragment listFragment = (ToDoListFragment) fm.findFragmentByTag(TAG_LIST_FRAG);
 		listFragment.notifyItemsChanged();
 		//Find the Detail fragment and remove it, if it is on screen
-		FragmentTransaction ft = fm.beginTransaction();
-		ToDoItemDetailFragment detailFragment = (ToDoItemDetailFragment) fm.findFragmentByTag(TAG_DETAIL_FRAG);
-		if (detailFragment != null) {
-			ft.remove(detailFragment);
-		}
-
-		ft.commit();
+//		FragmentTransaction ft = fm.beginTransaction();
+//		ToDoItemDetailFragment detailFragment = (ToDoItemDetailFragment) fm.findFragmentByTag(TAG_DETAIL_FRAG);
+//		if (detailFragment != null) {
+//			ft.remove(detailFragment);
+//		}
+//
+//		ft.commit();
 
 	}
 
